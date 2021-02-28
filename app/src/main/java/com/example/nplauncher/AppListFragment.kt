@@ -45,6 +45,7 @@ class AppListFragment : Fragment() {
                     val bgColor = it.vibrantSwatch?.rgb ?: Color.BLACK
                     frag_app_list.setBackgroundColor(bgColor)
                     this.activity?.window?.statusBarColor = bgColor
+                    this.activity?.window?.navigationBarColor = bgColor
                 }
             }
         }
