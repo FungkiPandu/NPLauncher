@@ -17,7 +17,7 @@ class AppListViewModel : ViewModel() {
         get() = _appsLiveData
 
 
-    fun loadApps(packageManager: PackageManager) {
+    fun loadApps(packageManager: PackageManager, appPackageName: String) {
         try {
             if (apps.isEmpty()) {
                 val i = Intent(Intent.ACTION_MAIN, null)
@@ -25,6 +25,7 @@ class AppListViewModel : ViewModel() {
                 val availableApps =
                     packageManager.queryIntentActivities(i, 0)
                 for (ri in availableApps) {
+                    if (ri.activityInfo.packageName == appPackageName) continue
                     val appinfo = App(
                         ri.activityInfo.packageName,
                         ri.loadLabel(packageManager).toString(),

@@ -70,7 +70,8 @@ class AppListFragment : Fragment() {
     }
 
     private fun loadAppList() {
-        viewModel.loadApps(requireActivity().packageManager)
+        val appName = this.requireActivity().applicationContext.packageName
+        viewModel.loadApps(requireActivity().packageManager, appName)
     }
 
     private fun initRecyclerView() {
