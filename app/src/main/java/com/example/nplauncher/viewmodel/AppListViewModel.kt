@@ -22,7 +22,7 @@ class AppListViewModel : ViewModel() {
             _appsLiveData.postValue(apps)
             return
         }
-        val search = FuzzySearch.extractTop(query, apps, { item -> item?.appLabel ?: "" }, 20, 90)
+        val search = FuzzySearch.extractTop(query, apps, { item -> item?.appLabel ?: "" }, 20, 70)
         _appsLiveData.postValue(search.map { it.referent })
     }
 
