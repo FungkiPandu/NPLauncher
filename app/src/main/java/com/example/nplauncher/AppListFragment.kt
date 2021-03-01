@@ -95,8 +95,7 @@ class AppListFragment : Fragment() {
         rv_apps.layoutManager = GridLayoutManager(requireContext(), 5)
         rv_apps.adapter = appListAdapter
         appListAdapter.setOnAppItemClick {
-            search_view.setQuery("", false)
-            search_view.clearFocus()
+            clearSearch()
             launchApp(it.appName)
         }
     }
@@ -110,5 +109,15 @@ class AppListFragment : Fragment() {
         appIntent?.let {
             startActivity(appIntent)
         }
+    }
+
+    private fun clearSearch() {
+        search_view.setQuery("", false)
+        search_view.clearFocus()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        clearSearch()
     }
 }
