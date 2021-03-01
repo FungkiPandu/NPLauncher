@@ -1,22 +1,17 @@
 package com.example.nplauncher
 
-import android.Manifest
 import android.app.WallpaperManager
-import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.palette.graphics.Palette
 import com.example.nplauncher.helper.PermissionHelper
 import com.example.nplauncher.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.view.*
 
 

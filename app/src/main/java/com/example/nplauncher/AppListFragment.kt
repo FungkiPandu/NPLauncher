@@ -1,14 +1,12 @@
 package com.example.nplauncher
 
-import android.Manifest
 import android.app.WallpaperManager
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.SearchView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,6 +18,8 @@ import com.example.nplauncher.helper.PermissionHelper
 import com.example.nplauncher.model.App
 import com.example.nplauncher.viewmodel.AppListViewModel
 import kotlinx.android.synthetic.main.app_list_fragment.*
+import kotlinx.android.synthetic.main.search_view.*
+import kotlinx.android.synthetic.main.search_view.view.*
 
 
 class AppListFragment : Fragment() {
@@ -29,7 +29,6 @@ class AppListFragment : Fragment() {
 
     private lateinit var viewModel: AppListViewModel
     private val appListAdapter = AppListAdapter(arrayListOf())
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +48,24 @@ class AppListFragment : Fragment() {
                 }
             }
         }
+
+        view.search_view.isSubmitButtonEnabled = false
+        view.search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                rv_apps.layoutManager = GridLayoutManager(
+                    requireContext(),
+                    5,
+                    GridLayoutManager.VERTICAL,
+                    !query.isNullOrBlank()
+                )
+                viewModel.searchApps(query ?: "")
+                return true
+            }
+        })
         return view
     }
 
@@ -78,6 +95,8 @@ class AppListFragment : Fragment() {
         rv_apps.layoutManager = GridLayoutManager(requireContext(), 5)
         rv_apps.adapter = appListAdapter
         appListAdapter.setOnAppItemClick {
+            search_view.setQuery("", false)
+            search_view.clearFocus()
             launchApp(it.appName)
         }
     }
